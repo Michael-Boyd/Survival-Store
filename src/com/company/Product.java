@@ -11,11 +11,11 @@ import java.util.Arrays;
  * Created by mikeboyd5 on 6/30/15.
  */
 public class Product {
-    private int stockCount =0;
-    private String category = null;
-    private String name = null;
-    private double price = 0;
-    private int productID =0;
+    private int stockCount;
+    private String category;
+    private String name;
+    private double price;
+    private int productID;
 
 
 
@@ -56,6 +56,18 @@ public class Product {
         return idCounter++;
     }
 
+    public static Product getCopy(Product listItem){
+        Product cartItem = new Product();
+
+        cartItem.setProductID(listItem.getProductID());
+        cartItem.setCategory(listItem.getCategory());
+        cartItem.setName(listItem.getName());
+        cartItem.setPrice(listItem.getPrice());
+        cartItem.setStockCount(listItem.getStockCount());
+
+    return cartItem;
+    }
+
     public int getStockCount() {
         return stockCount;
     }
@@ -71,6 +83,7 @@ public class Product {
     public double getPrice() {
         return price;
     }
+
 
     public int getProductID() {
         return productID;
@@ -88,7 +101,7 @@ public class Product {
         this.name = name;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

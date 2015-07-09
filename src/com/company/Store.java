@@ -14,7 +14,9 @@ import java.util.Comparator;
 public class Store {
     private String line = null;
     private String[] lineArray;
-    ArrayList<Product> itemizedList = new ArrayList();
+    static ArrayList<Product> itemizedList = new ArrayList();
+
+    User user = new User();
 
 
 
@@ -60,6 +62,9 @@ public class Store {
 
     }
 
+    public static ArrayList<Product> getItemizedList() {
+        return itemizedList;
+    }
 
     public void printList(){
 
@@ -71,23 +76,33 @@ public class Store {
 
         Collections.sort(itemizedList,new CategoryComparator());
         printDisplay(itemizedList);
+        Collections.sort(itemizedList, new IDComparator());
+
 
 
     }
     public void printSortedNames(){
         Collections.sort(itemizedList, new NameComparator());
         printDisplay(itemizedList);
+        Collections.sort(itemizedList, new IDComparator());
 
     }
     public void printSortedPrice(){
         Collections.sort(itemizedList, new PriceComparator());
         printDisplay(itemizedList);
+        Collections.sort(itemizedList, new IDComparator());
 
     }
+//    @Override
+//
+//    public void toString(ArrayList<Product> inventory){
+//        String line = String.format("%10s%10s%10s%10s",inventory.get(0).getCategory());
+//    }
     public void printDisplay(ArrayList<Product> itemizedList) {
         StringBuilder builder = new StringBuilder();
         System.out.println("CATEGORY" + "\t\t\t\t\t\t\t" + "NAME" + "\t\t\t\t\t\t\t" + "PRICE" + "\t\t\t\t\t\t\t" + "UNIT COUNT" + "\t\t\t\t\t\t\t"+ "PRODUCT ID" + "\t\t\t\t\t\t\t");
         int index = 1;
+
 
         for (int i = 0; i < itemizedList.size(); i++) {
             builder.append(index);
@@ -109,6 +124,13 @@ public class Store {
         System.out.printf(builder.toString());
 
     }
+
+        public double getPrice(){
+            //I just need the user input in order to get the index for the itemizd list
+            double price = getItemizedList().get(user.getItemId()-1).getPrice();
+
+            return price;
+        }
 
 
 
@@ -133,6 +155,17 @@ public class Store {
         @Override
         public int compare(Product o1, Product o2) {
             if(o1.getPrice() > o2.getPrice()){
+                return 1;
+            }
+            return -1;
+        }
+    }
+
+    class IDComparator implements Comparator<Product>{
+
+        @Override
+        public int compare(Product o1, Product o2) {
+            if(o1.getProductID()>o2.getProductID()){
                 return 1;
             }
             return -1;
